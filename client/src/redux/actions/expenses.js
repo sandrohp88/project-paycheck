@@ -1,5 +1,5 @@
 import { FETCH_EXPENSES_SUCCESS, SAVE_EXPENSE_SUCCESS } from "./types";
-
+import { toast } from "react-toastify";
 import getExpenses, { saveExpenseApi } from "../../mockApi/api/expensesApi";
 
 // synchronous actions
@@ -27,7 +27,7 @@ const fetchExpenses = () => {
         );
       }
     } catch (error) {
-      throw error;
+      toast.error("Something went wrong fetching expenses" + error);
     }
   };
 };
@@ -39,7 +39,7 @@ const saveExpense = expense => {
       return dispatch(updateExpenseSuccess(id, updates));
     } catch (error) {
       console.error(error);
-      throw new Error(error);
+      toast.error("Something went wrong updating expense" + error);
     }
   };
 };

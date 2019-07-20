@@ -1,7 +1,7 @@
 import { FETCH_DEBTS_SUCCESS, SAVE_DEBT_SUCCESS } from "./types";
 
 import getDebts, { saveDebtApi } from "../../mockApi/api/debtApi";
-
+import { toast } from "react-toastify";
 // synchronous actions
 const updateDebtSuccess = (id = "", updates = {}) => ({
   type: SAVE_DEBT_SUCCESS,
@@ -27,7 +27,7 @@ const fetchDebts = () => {
         );
       }
     } catch (error) {
-      throw error;
+      toast.error(`Something went wrong fetching debts ${error}`);
     }
   };
 };
@@ -39,7 +39,7 @@ const saveDebt = debt => {
       return dispatch(updateDebtSuccess(id, updates));
     } catch (error) {
       console.error(error);
-      throw new Error(error);
+      toast.error(`Something went wrong saving debt:${debt}. ${error}`);
     }
   };
 };
